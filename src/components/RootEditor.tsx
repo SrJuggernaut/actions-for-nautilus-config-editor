@@ -1,22 +1,19 @@
-import ActionsList from '@/components/ActionsList'
-import Breadcrumbs from '@/components/Breadcrumbs'
-import Alert, { type AlertProps } from '@/components/ui/Alert'
 import useLocalState from '@/hooks/useLocalState'
 import { actionsForNautilusSchema, type ActionsForNautilus } from '@/schemas/ActionsForNautilus'
 import { Box, Button, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Switch } from '@mui/material'
-import { Suspense, lazy, useCallback, useEffect, useState, type FC } from 'react'
+import { useCallback, useEffect, useState, type Dispatch, type FC, type SetStateAction } from 'react'
+import ActionsList from './ActionsList'
+import Alert, { type AlertProps } from './ui/Alert'
 
-const ActionEditor = lazy(async () => await import('@/components/ActionEditor'))
-
-export interface BaseEditorProps {
+interface RootEditorProps {
   value: ActionsForNautilus
   onChange: (value: ActionsForNautilus) => void
+  setEditingAction: Dispatch<SetStateAction<number | undefined>>
 }
 
-const BaseEditor: FC<BaseEditorProps> = ({ value, onChange }) => {
+const RootEditor: FC<RootEditorProps> = ({ value, onChange, setEditingAction }) => {
   const [error, setError] = useState<Omit<AlertProps, 'onClose' | 'open'> | undefined>(undefined)
   const { isCurrentEdited, localState, setIsCurrentEdited, setLocalState } = useLocalState(value)
-  const [editingAction, setEditingAction] = useState<number | undefined>(undefined)
 
   const handleSave = useCallback((currentLocalState: ActionsForNautilus) => {
     const result = actionsForNautilusSchema.safeParse(currentLocalState)
@@ -37,7 +34,6 @@ const BaseEditor: FC<BaseEditorProps> = ({ value, onChange }) => {
   }
 
   useEffect(() => {
-    if (editingAction !== undefined) return
     const valueAsString = JSON.stringify(value)
     const localStateAsString = JSON.stringify(localState)
     if (valueAsString !== localStateAsString) {
@@ -45,33 +41,10 @@ const BaseEditor: FC<BaseEditorProps> = ({ value, onChange }) => {
     } else {
       setIsCurrentEdited(false)
     }
-  }, [value, localState, editingAction])
-
-  useEffect(() => {
-    if (editingAction !== undefined) {
-      setLocalState(value)
-    }
-  }, [editingAction])
-
-  if (editingAction !== undefined) {
-    return <Suspense>
-      <ActionEditor
-        value={value.actions[editingAction]}
-        breadcrumbs={[{ label: 'Root', onClick: () => { setEditingAction(undefined) } }]}
-        onChange={(modifiedAction) => {
-          const newActions = [...value.actions.slice(0, editingAction), modifiedAction, ...value.actions.slice(editingAction + 1)]
-          onChange({
-            ...value,
-            actions: newActions
-          })
-        }}
-      />
-    </Suspense>
-  }
+  }, [value, localState])
 
   return (
     <>
-      <Breadcrumbs items={[{ label: 'Root', onClick: () => { } }]} />
       <Alert
         open={error !== undefined}
         message={error !== undefined ? error?.message : ''}
@@ -94,9 +67,7 @@ const BaseEditor: FC<BaseEditorProps> = ({ value, onChange }) => {
               actions
             })
           }}
-          onEditAction={(index) => {
-            setEditingAction(index)
-          }}
+          onEditAction={setEditingAction}
         />
         <Box>
           <FormControl>
@@ -166,4 +137,4 @@ const BaseEditor: FC<BaseEditorProps> = ({ value, onChange }) => {
   )
 }
 
-export default BaseEditor
+export default RootEditor

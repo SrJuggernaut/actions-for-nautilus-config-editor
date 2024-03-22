@@ -68,6 +68,8 @@ export const baseMenuSchema = z.object({
   sort: sortStylesSchema.optional()
 })
 
+export const isCommand = (data: unknown): data is Command => commandSchema.safeParse(data).success
+
 export type Menu = z.infer<typeof baseMenuSchema> & {
   actions: Array<Command | Menu>
 }
@@ -76,6 +78,8 @@ export const menuSchema: z.ZodType<Menu> = baseMenuSchema
   .extend({
     actions: z.lazy(() => z.array(z.union([commandSchema, menuSchema], { invalid_type_error: 'Invalid action' }), { invalid_type_error: 'Invalid actions array' }))
   })
+
+export const isMenu = (data: unknown): data is Menu => menuSchema.safeParse(data).success
 
 export const actionSchema = z.union([commandSchema, menuSchema], { invalid_type_error: 'Invalid action' })
 
@@ -109,3 +113,5 @@ export const defaultMenu: Menu = {
   sort: undefined,
   actions: []
 }
+
+export const isActionsForNautilus = (data: unknown): data is ActionsForNautilus => actionsForNautilusSchema.safeParse(data).success

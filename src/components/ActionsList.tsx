@@ -26,6 +26,8 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
             >
               <Tooltip title="Move up">
                 <Button
+                  LinkComponent={ index === 0 ? 'span' : 'button' }
+                  href={index === 0 ? '#' : undefined}
                   disabled={index === 0}
                   onClick={(event) => {
                     event.stopPropagation()
@@ -39,6 +41,8 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
               </Tooltip>
               <Tooltip title="Move down">
                 <Button
+                  LinkComponent={ index === value.length - 1 ? 'span' : 'button' }
+                  href={index === value.length - 1 ? '#' : undefined}
                   disabled={index === value.length - 1}
                   onClick={(event) => {
                     event.stopPropagation()

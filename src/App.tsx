@@ -1,12 +1,14 @@
 import Nautilus from '@/assets/Nautilus'
+import ConfigButtonGroup from '@/components/ConfigButtonGroup'
 import ConfigLoader from '@/components/ConfigLoader'
+import { type ActionsForNautilus } from '@/schemas/ActionsForNautilus'
 import context from '@/state/context'
 import { BugReport, Favorite } from '@mui/icons-material'
 import { AppBar, Box, Button, Link, Tooltip, Typography } from '@mui/material'
 import { Suspense, lazy, useContext, type FC } from 'react'
-import ConfigButtonGroup from './components/ConfigButtonGroup'
 
-const BaseEditor = lazy(async () => await import('@/components/BaseEditor'))
+const Traverser = lazy(async () => await import('@/components/Traverser'))
+
 const App: FC = () => {
   const { state, dispatch } = useContext(context)
   return (
@@ -52,9 +54,10 @@ const App: FC = () => {
         {state.config === undefined
           ? <ConfigLoader />
           : <Suspense>
-            <BaseEditor
+            <Traverser
               value={state.config}
-              onChange={(value) => {
+              breadcrumbs={[]}
+              onChange={(value: ActionsForNautilus) => {
                 dispatch({
                   type: 'SET_CONFIG',
                   payload: value
