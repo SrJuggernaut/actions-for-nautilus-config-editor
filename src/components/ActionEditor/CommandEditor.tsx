@@ -5,7 +5,8 @@ import Alert, { type AlertProps } from '@/components/ui/Alert'
 import NumberInput from '@/components/ui/NumberInput'
 import useLocalState from '@/hooks/useLocalState'
 import { commandSchema, type Command } from '@/schemas/ActionsForNautilus'
-import { ExpandMore } from '@mui/icons-material'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, FormControl, FormControlLabel, FormGroup, FormLabel, InputLabel, MenuItem, Select, Switch, TextField } from '@mui/material'
 import { useCallback, useEffect, useState, type FC } from 'react'
 
@@ -172,7 +173,7 @@ const CommandEditor: FC<CommandEditorProps> = ({ value, onChange }) => {
       </Box>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMore fontSize='inherit' />}
+          expandIcon={<FontAwesomeIcon icon={faChevronDown} fixedWidth />}
         >
           {`Mime types (${localState.mimetypes === undefined || localState.mimetypes.length === 0 ? 'Disabled' : localState.mimetypes.length})`}
         </AccordionSummary>
@@ -197,7 +198,7 @@ const CommandEditor: FC<CommandEditorProps> = ({ value, onChange }) => {
       </Accordion>
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMore fontSize='inherit' />}
+          expandIcon={<FontAwesomeIcon icon={faChevronDown} fixedWidth />}
         >
           {`File types (${localState.filetypes === undefined || localState.filetypes.length === 0 ? 'Disabled' : localState.filetypes.length})`}
         </AccordionSummary>
@@ -223,7 +224,7 @@ const CommandEditor: FC<CommandEditorProps> = ({ value, onChange }) => {
 
       <Accordion>
         <AccordionSummary
-          expandIcon={<ExpandMore fontSize='inherit' />}
+          expandIcon={<FontAwesomeIcon icon={faChevronDown} fixedWidth />}
         >
           {`Path patterns (${localState.path_patterns === undefined || localState.path_patterns.length === 0 ? 'Disabled' : localState.path_patterns.length})`}
         </AccordionSummary>

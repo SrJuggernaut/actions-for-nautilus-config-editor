@@ -1,6 +1,7 @@
 import { type ActionsForNautilus } from '@/schemas/ActionsForNautilus'
 import context from '@/state/context'
-import { Clear, FileDownload } from '@mui/icons-material'
+import { faDownload, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, ButtonGroup } from '@mui/material'
 import { useCallback, useContext, type FC } from 'react'
 
@@ -56,7 +57,7 @@ const ConfigButtonGroup: FC = () => {
           })
         }}
       >
-        <Clear fontSize="inherit" />&nbsp;Clear
+        <FontAwesomeIcon icon={faTimes} fixedWidth />&nbsp;Clear
       </Button>
       <Button
         color="success"
@@ -95,7 +96,7 @@ const ConfigButtonGroup: FC = () => {
           }
         }}
       >
-        <FileDownload fontSize="inherit" />&nbsp;Export
+        <FontAwesomeIcon icon={faDownload} fixedWidth />&nbsp;Export
       </Button>
     </ButtonGroup>
   )

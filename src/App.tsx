@@ -4,8 +4,9 @@ import ConfigLoader from '@/components/ConfigLoader'
 import Alert, { type AlertProps } from '@/components/ui/Alert'
 import { actionsForNautilusSchema, type ActionsForNautilus, type Menu } from '@/schemas/ActionsForNautilus'
 import context from '@/state/context'
-import { BugReport, Favorite } from '@mui/icons-material'
-import { AppBar, Box, Button, Link, Tooltip, Typography } from '@mui/material'
+import { faBook, faBug, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AppBar, Box, IconButton, Link, Tooltip, Typography } from '@mui/material'
 import { Suspense, lazy, useContext, useEffect, useState, type FC } from 'react'
 
 const Traverser = lazy(async () => await import('@/components/Traverser'))
@@ -57,17 +58,33 @@ const App: FC = () => {
         }}
       >
         <Nautilus width={48} />
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 1
+          }}
+        >
           <Tooltip title="Report an issue">
-            <Button
+            <IconButton
               component="a"
               href="https://github.com/SrJuggernaut/actions-for-nautilus-config-editor/issues"
               target="_blank"
               rel="noreferrer"
-              sx={{ marginInline: 1 }}
             >
-              <BugReport />
-            </Button>
+              <FontAwesomeIcon icon={faBug} fixedWidth color="inherit" size="xs" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Actions for Nautilus configuration Reference">
+            <IconButton
+              component="a"
+              href="https://github.com/bassmanitram/actions-for-nautilus#configuration-reference"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faBook} fixedWidth color="inherit" size="xs" />
+            </IconButton>
           </Tooltip>
           {state.config !== undefined && <ConfigButtonGroup />}
         </Box>
@@ -121,7 +138,7 @@ const App: FC = () => {
             rel="noreferrer"
           >
             SrJuggernaut
-          </Link> with <Favorite fontSize="inherit" color='error' />. Need a web developer?, <Link
+          </Link> with <FontAwesomeIcon icon={faHeart} fixedWidth color="red" size="xs" />. Need a web developer?, <Link
             href="https://srjuggernaut.dev/contacto"
             target="_blank"
             rel="noreferrer"

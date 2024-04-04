@@ -1,5 +1,6 @@
 import { type Command } from '@/schemas/ActionsForNautilus'
-import { Delete, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { faChevronDown, faChevronUp, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, ButtonGroup, TextField } from '@mui/material'
 import { type FC } from 'react'
 
@@ -35,22 +36,22 @@ const PathPatternsEditor: FC<PathPatternsEditorProps> = ({ onChange, value }) =>
                     onClick={(event) => {
                       event.stopPropagation()
                       const newPatterns = [...value]
-                      newPatterns.splice(index + 1, 0, newPatterns.splice(index, 1)[0])
+                      newPatterns.splice(index - 1, 0, newPatterns.splice(index, 1)[0])
                       onChange(newPatterns)
                     }}
                   >
-                    <KeyboardArrowDown fontSize="inherit" />
+                    <FontAwesomeIcon icon={faChevronUp} fixedWidth />
                   </Button>
                   <Button
                     disabled={index === value.length - 1}
                     onClick={(event) => {
                       event.stopPropagation()
                       const newPatterns = [...value]
-                      newPatterns.splice(index - 1, 0, newPatterns.splice(index, 1)[0])
+                      newPatterns.splice(index + 1, 0, newPatterns.splice(index, 1)[0])
                       onChange(newPatterns)
                     }}
                   >
-                    <KeyboardArrowUp fontSize="inherit" />
+                    <FontAwesomeIcon icon={faChevronDown} fixedWidth />
                   </Button>
                   <Button
                     onClick={(event) => {
@@ -60,7 +61,7 @@ const PathPatternsEditor: FC<PathPatternsEditorProps> = ({ onChange, value }) =>
                       onChange(newPatterns)
                     }}
                   >
-                    <Delete fontSize="inherit"/>
+                    <FontAwesomeIcon icon={faTrash} fixedWidth />
                   </Button>
                 </ButtonGroup>
               )

@@ -1,4 +1,5 @@
-import CloseIcon from '@mui/icons-material/Close'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AlertTitle, Collapse, IconButton, Alert as MuiAlert } from '@mui/material'
 import { type FC } from 'react'
 
@@ -26,7 +27,7 @@ const Alert: FC<AlertProps> = ({ message, severity, title, open, onClose }) => {
             size="small"
             onClick={onClose}
           >
-            <CloseIcon fontSize="inherit" />
+            <FontAwesomeIcon icon={faTimes} fixedWidth />
           </IconButton>
         )}
         severity={severity}

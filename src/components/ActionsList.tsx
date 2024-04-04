@@ -1,6 +1,7 @@
 import { defaultCommand, defaultMenu, type Action } from '@/schemas/ActionsForNautilus'
 import context from '@/state/context'
-import { ContentCopy, Delete, KeyboardArrowDown, KeyboardArrowUp, Menu as MenuIcon, Terminal } from '@mui/icons-material'
+import { faBars, faChevronDown, faChevronUp, faClone, faTerminal, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, ButtonGroup, List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Tooltip } from '@mui/material'
 import { useContext, type FC } from 'react'
 
@@ -36,7 +37,7 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
                     onChange(newActions)
                   }}
                 >
-                  <KeyboardArrowUp fontSize='inherit' />
+                  <FontAwesomeIcon icon={faChevronUp} fixedWidth />
                 </Button>
               </Tooltip>
               <Tooltip title="Move down">
@@ -51,19 +52,19 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
                     onChange(newActions)
                   }}
                 >
-                  <KeyboardArrowDown fontSize='inherit' />
+                  <FontAwesomeIcon icon={faChevronDown} fixedWidth />
                 </Button>
               </Tooltip>
-              <Tooltip title="Copy">
+              <Tooltip title="Duplicate">
                 <Button
                   onClick={(event) => {
                     event.stopPropagation()
                     const newActions = [...value]
-                    newActions.splice(index + 1, 0, { ...action, label: action.label + ' (copy)' })
+                    newActions.splice(index + 1, 0, { ...action, label: action.label + ' (duplicate)' })
                     onChange(newActions)
                   }}
                 >
-                  <ContentCopy fontSize='inherit' />
+                  <FontAwesomeIcon icon={faClone} fixedWidth />
                 </Button>
               </Tooltip>
               <Tooltip title="Delete">
@@ -75,7 +76,7 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
                     onChange(newActions)
                   }}
                 >
-                  <Delete fontSize='inherit' />
+                  <FontAwesomeIcon icon={faTrash} fixedWidth />
                 </Button>
               </Tooltip>
             </ButtonGroup>
@@ -119,7 +120,7 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
               }}
             >
               <ListItemIcon>
-                {action.type === 'command' ? <Terminal fontSize='inherit' /> : <MenuIcon fontSize='inherit' /> }
+                {action.type === 'command' ? <FontAwesomeIcon icon={faTerminal} fixedWidth /> : <FontAwesomeIcon icon={faBars} fixedWidth /> }
               </ListItemIcon>
               <ListItemText primary={action.label} />
             </ListItemButton>
@@ -140,7 +141,7 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
 
         >
           <ListItemIcon>
-            <Terminal fontSize='inherit' />
+            <FontAwesomeIcon icon={faTerminal} fixedWidth />
           </ListItemIcon>
           <ListItemText primary="Add Command" />
         </ListItemButton>
@@ -157,7 +158,7 @@ const ActionsList: FC<ActionListProps> = ({ onChange, onEditAction, value }) => 
           }}
         >
           <ListItemIcon>
-            <MenuIcon fontSize='inherit' />
+            <FontAwesomeIcon icon={faBars} fixedWidth />
           </ListItemIcon>
           <ListItemText primary="Add Menu" />
         </ListItemButton>

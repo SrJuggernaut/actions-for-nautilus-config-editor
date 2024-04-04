@@ -1,5 +1,6 @@
 import { type Command } from '@/schemas/ActionsForNautilus'
-import { Delete, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { faChevronDown, faChevronUp, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, ButtonGroup, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { type FC } from 'react'
 
@@ -72,7 +73,7 @@ const FiletypesEditor: FC<FiletypesEditorProps> = ({ value, onChange }) => {
                 onChange(newMimetypes)
               }}
             >
-              <KeyboardArrowUp fontSize='inherit' />
+              <FontAwesomeIcon icon={faChevronUp} fixedWidth />
             </Button>
             <Button
               disabled={value === undefined || index === value.length - 1}
@@ -83,7 +84,7 @@ const FiletypesEditor: FC<FiletypesEditorProps> = ({ value, onChange }) => {
                 onChange(newMimetypes)
               }}
             >
-              <KeyboardArrowDown fontSize='inherit' />
+              <FontAwesomeIcon icon={faChevronDown} fixedWidth />
             </Button>
             <Button
               onClick={(event) => {
@@ -93,7 +94,7 @@ const FiletypesEditor: FC<FiletypesEditorProps> = ({ value, onChange }) => {
                 onChange(newMimetypes)
               }}
             >
-              <Delete fontSize='inherit' />
+              <FontAwesomeIcon icon={faTrash} fixedWidth />
             </Button>
           </ButtonGroup>
         </Box>

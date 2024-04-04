@@ -1,4 +1,5 @@
-import { Delete, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { faChevronDown, faChevronUp, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button, ButtonGroup, TextField } from '@mui/material'
 import { type FC } from 'react'
 
@@ -36,7 +37,7 @@ const MimeTypeEditor: FC<MimeTypeEditorProps> = ({ value, onChange }) => {
                     onChange(newMimetypes)
                   }}
                 >
-                  <KeyboardArrowUp fontSize='inherit' />
+                  <FontAwesomeIcon icon={faChevronUp} fixedWidth />
                 </Button>
                 <Button
                   disabled={value === undefined || index === value.length - 1}
@@ -47,7 +48,7 @@ const MimeTypeEditor: FC<MimeTypeEditorProps> = ({ value, onChange }) => {
                     onChange(newMimetypes)
                   }}
                 >
-                  <KeyboardArrowDown fontSize='inherit' />
+                  <FontAwesomeIcon icon={faChevronDown} fixedWidth />
                 </Button>
                 <Button
                   onClick={(event) => {
@@ -57,7 +58,7 @@ const MimeTypeEditor: FC<MimeTypeEditorProps> = ({ value, onChange }) => {
                     onChange(newMimetypes)
                   }}
                 >
-                  <Delete fontSize='inherit' />
+                  <FontAwesomeIcon icon={faTrash} fixedWidth />
                 </Button>
               </ButtonGroup>
             )
