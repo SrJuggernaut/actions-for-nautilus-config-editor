@@ -76,7 +76,17 @@ export type Menu = z.infer<typeof baseMenuSchema> & {
 
 export const menuSchema: z.ZodType<Menu> = baseMenuSchema
   .extend({
-    actions: z.lazy(() => z.array(z.union([commandSchema, menuSchema], { invalid_type_error: 'Invalid action' }), { invalid_type_error: 'Invalid actions array' }))
+    actions: z.lazy(() => z.array(z.union([commandSchema, menuSchema], { invalid_type_error: 'Invalid action' }), { invalid_type_error: 'Invalid actions array' })
+      .refine((actions) => {
+        const names = new Set<string>()
+        actions.forEach((action) => {
+          names.add(action.label)
+        })
+        return names.size === actions.length
+      }, {
+        message: 'All Commands or Menus in the menu must have unique names'
+      })
+    )
   })
 
 export const isMenu = (data: unknown): data is Menu => menuSchema.safeParse(data).success
@@ -86,7 +96,17 @@ export const actionSchema = z.union([commandSchema, menuSchema], { invalid_type_
 export type Action = z.infer<typeof actionSchema>
 
 export const actionsForNautilusSchema = z.object({
-  actions: z.array(z.union([menuSchema, commandSchema], { invalid_type_error: 'Invalid action' }), { invalid_type_error: 'Invalid actions array' }),
+  actions: z.lazy(() => z.array(z.union([commandSchema, menuSchema], { invalid_type_error: 'Invalid action' }), { invalid_type_error: 'Invalid actions array' })
+    .refine((actions) => {
+      const names = new Set<string>()
+      actions.forEach((action) => {
+        names.add(action.label)
+      })
+      return names.size === actions.length
+    }, {
+      message: 'All Commands or Menus in the menu must have unique names'
+    })
+  ),
   sort: sortStylesSchema.optional(),
   debug: z.boolean({ invalid_type_error: 'Debug must be a boolean' }).optional()
 }).strict()
