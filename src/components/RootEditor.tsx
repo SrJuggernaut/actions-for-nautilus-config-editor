@@ -75,7 +75,6 @@ const RootEditor: FC<RootEditorProps> = ({ value, onChange, setEditingAction }) 
             <RadioGroup
               aria-labelledby="sort"
               name="sort"
-              defaultValue={'auto'}
               value={localState.sort}
               onChange={(event) => {
                 setLocalState({
@@ -91,14 +90,17 @@ const RootEditor: FC<RootEditorProps> = ({ value, onChange, setEditingAction }) 
           </FormControl>
           <FormGroup>
             <FormControlLabel
-              onChange={(_, checked) => {
-                setLocalState({
-                  ...localState,
-                  debug: checked
-                })
-              }}
-              value={localState.debug}
-              control={<Switch />}
+              control={(
+                <Switch
+                  checked={localState.debug}
+                  onChange={(_, checked) => {
+                    setLocalState({
+                      ...localState,
+                      debug: checked
+                    })
+                  }}
+                />
+              )}
               label="Debug"
             />
           </FormGroup>

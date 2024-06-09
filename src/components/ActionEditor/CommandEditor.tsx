@@ -106,14 +106,17 @@ const CommandEditor: FC<CommandEditorProps> = ({ value, onChange }) => {
           sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
         >
           <FormControlLabel
-            onChange={(_, checked) => {
-              setLocalState({
-                ...localState,
-                use_shell: checked
-              })
-            }}
-            value={localState.use_shell}
-            control={<Switch />}
+            control={(
+              <Switch
+                checked={localState.use_shell}
+                onChange={(_, checked) => {
+                  setLocalState({
+                    ...localState,
+                    use_shell: checked
+                  })
+                }}
+              />
+            )}
             label="Use Shell"
           />
         </FormGroup>

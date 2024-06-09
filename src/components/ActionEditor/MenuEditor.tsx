@@ -90,7 +90,6 @@ const MenuEditor: FC<MenuEditorProps> = ({ onChange, value, setEditingAction }) 
             <RadioGroup
               aria-labelledby="sort"
               name="sort"
-              defaultValue={'auto'}
               value={localState.sort}
               onChange={(_, value) => {
                 setLocalState({
